@@ -21,6 +21,7 @@ public interface ConceptRepository extends JpaRepository<Concept, Long> {
   @Query("select new java.lang.String(i.name) from Concept i ")
   List<String> getAllName();
 
+  //@Query("select c from Concept c where c.name =?1")
   List<Concept> findByName(String name);
 
 }

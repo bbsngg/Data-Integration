@@ -1,13 +1,8 @@
 package com.example.data.service.serviceimpl;
 
-import com.example.data.dao.CompanyRepository;
 import com.example.data.dao.ConceptRepository;
-import com.example.data.dao.ExecutiveRepository;
-import com.example.data.dao.IndustryRepository;
 import com.example.data.po.*;
-import com.example.data.service.CompanyService;
 import com.example.data.service.ConceptService;
-import com.example.data.vo.CompanyVO;
 import com.example.data.vo.ConceptVO;
 import com.example.data.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
