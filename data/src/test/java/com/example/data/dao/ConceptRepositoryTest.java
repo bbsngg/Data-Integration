@@ -18,4 +18,14 @@ class ConceptRepositoryTest {
     List<Concept> res = conceptRepository.findByStockCode(1L);
     assertEquals(8,res.size());
   }
+
+    @Test
+    void getAllName() {
+    }
+
+    @Test
+    void findByName() {
+      List<Concept> res = conceptRepository.findByName("股权激励");
+      System.out.println(res);
+    }
 }

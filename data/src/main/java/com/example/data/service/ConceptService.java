@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ConceptService {
 
-  ResponseVO getAllId();
+  ResponseVO getAllName();
 
+  ResponseVO findConceptByName(List<String> list);
 }

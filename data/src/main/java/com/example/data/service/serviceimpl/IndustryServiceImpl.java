@@ -28,18 +28,13 @@ public class IndustryServiceImpl implements IndustryService {
   }
 
   @Override
-  public ResponseVO getAllId() {
+  public ResponseVO getAllName() {
 
     try{
-      List<Industry> list = industryRepository.findAll();
-      List<Long> ret = new ArrayList<>();
-      for (Industry temp: list){
-        ret.add(temp.getId());
-      }
-      return ResponseVO.buildSuccess(ret);
+      return ResponseVO.buildSuccess(industryRepository.getAllName());
     }
     catch (Exception e){
-      System.out.println("获取所有产业的代号失败");
+      System.out.println("获取所有产业的名字失败");
       return ResponseVO.buildFailure(e.getMessage());
     }
   }

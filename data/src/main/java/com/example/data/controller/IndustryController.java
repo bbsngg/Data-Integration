@@ -21,9 +21,9 @@ public class IndustryController {
     this.service = service;
   }
 
-  @ApiOperation("获取所有股票代码")
-  @GetMapping("/getAllId")
-  public ResponseVO getAllId(){
-    return service.getAllId();
+  @ApiOperation("获取所有股票名字")
+  @GetMapping("/getAllName")
+  public ResponseVO getAllName(){
+    return service.getAllName();
   }
 }
