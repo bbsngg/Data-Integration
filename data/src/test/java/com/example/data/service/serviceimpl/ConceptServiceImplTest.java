@@ -25,4 +25,13 @@ class ConceptServiceImplTest {
 
         System.out.println(service.findConceptByName(list).getContent());
     }
+
+    @Test
+    void testFindConceptByName() {
+
+        List<String> list = new ArrayList<>();
+        list.add("3D打印");
+        list.add("4G概念");
+        System.out.println(service.findConceptByName(list).getContent());
+    }
 }

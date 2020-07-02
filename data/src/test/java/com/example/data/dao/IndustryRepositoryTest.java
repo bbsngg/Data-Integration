@@ -20,4 +20,8 @@ class IndustryRepositoryTest {
     assertEquals(1,res.size());
   }
 
+  @Test
+  void findByName() {
+    System.out.println(industryRepository.findByName("仪器仪表"));
+  }
 }

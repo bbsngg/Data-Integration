@@ -1,5 +1,6 @@
 package com.example.data.service.serviceimpl;
 
+import com.example.data.dao.CompanyRepository;
 import com.example.data.dao.ConceptRepository;
 import com.example.data.po.*;
 import com.example.data.service.ConceptService;
@@ -14,11 +15,12 @@ import java.util.List;
 @Service
 public class ConceptServiceImpl implements ConceptService {
   final ConceptRepository conceptRepository;
-  ;
+  final CompanyRepository companyRepository;
 
   @Autowired
-  public ConceptServiceImpl(ConceptRepository conceptRepository) {
+  public ConceptServiceImpl(ConceptRepository conceptRepository, CompanyRepository companyRepository) {
     this.conceptRepository = conceptRepository;
+    this.companyRepository = companyRepository;
   }
 
   @Override
@@ -46,9 +48,9 @@ public class ConceptServiceImpl implements ConceptService {
         vo.setConcept(concept);
 
         Long conceptId = concept.getId();
+        vo.setCompanies(companyRepository.findByConceptId(conceptId));
 
-
-
+        ret.add(vo);
       }
       return ResponseVO.buildSuccess(ret);
     }

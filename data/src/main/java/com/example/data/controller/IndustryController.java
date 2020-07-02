@@ -26,4 +26,10 @@ public class IndustryController {
   public ResponseVO getAllName(){
     return service.getAllName();
   }
+
+  @ApiOperation("获取多个产业的相关信息，根据产业名")
+  @PostMapping("/findIndustryByName")
+  public ResponseVO findIndustryByName(@RequestBody List<String> list){
+    return service.findIndustryByName(list);
+  }
 }
