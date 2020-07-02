@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: data
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://ismzl.com:3306/data
