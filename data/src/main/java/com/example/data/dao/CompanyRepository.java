@@ -11,4 +11,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
   @Query("select c from Company c where c.id < 3000")
   List<Company> findTopTenCompany();
+
+  Company findByStockCode(Long code);
+
 }
