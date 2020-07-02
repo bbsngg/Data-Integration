@@ -18,6 +18,8 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public List<Company> findSomeCompany() {
-    return companyRepository.findTopTenCompany();
+    List<Company> list = companyRepository.findTopTenCompany();
+
+    return list;
   }
 }

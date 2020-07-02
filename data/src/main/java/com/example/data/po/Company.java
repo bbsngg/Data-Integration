@@ -65,12 +65,12 @@ public class Company {
   /**
    * 股东
    */
-  private String shareHolder;
+  private String shareholder;
 
   /**
    * 注册资本
    */
-  private String captial;
+  private String capital;
 
   /**
    * 办公地点
