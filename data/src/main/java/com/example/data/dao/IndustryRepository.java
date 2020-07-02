@@ -16,4 +16,6 @@ public interface IndustryRepository extends JpaRepository<Industry,Long> {
    */
   @Query("select i from Industry i where i.id = ?1")
   List<Industry> findByIndustryId(Long id);
+
+  List<Industry> findByName(String name);
 }

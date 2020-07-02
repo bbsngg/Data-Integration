@@ -14,4 +14,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
   Company findByStockCode(Long code);
 
+  @Query("select c from Company c where c.stockCode in (select sc.stockCode from StockConcept sc where sc.conceptId = ?1)")
+  List<Company> findByConceptId(Long conceptId);
+
 }

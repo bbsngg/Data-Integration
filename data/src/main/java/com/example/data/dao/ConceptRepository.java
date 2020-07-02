@@ -18,4 +18,6 @@ public interface ConceptRepository extends JpaRepository<Concept, Long> {
   @Query("select c from Concept c where c.id in (select sc.conceptId from StockConcept sc where sc.stockCode = ?1)")
   List<Concept> findByStockCode(Long stockCode);
 
+  List<Concept> findByName(String name);
+
 }
