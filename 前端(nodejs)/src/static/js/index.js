@@ -2,6 +2,7 @@
 var stockCodeList = [] //股票代码list
 var conceptList = [] //概念股list
 var industryList = [] //产业list
+var executiveList = [] //执行人list
 
 window.onload = function() {
     //发送请求获取三种维度所有的标识
@@ -27,8 +28,6 @@ function getBaseData() {
             }
         }
     });
-
-
 
     $.ajax({
         type: "GET",
@@ -56,6 +55,19 @@ function getBaseData() {
         }
     });
 
+    $.ajax({
+        type: "GET",
+        url: 'http://ismzl.com:8300/executive/getAllName',
+        async: false,
+        success: function (res) {
+            if (!res.success) {
+                alert("查询所有执行人出错: " + res.message)
+            } else {
+                executiveList = res.content
+            }
+        }
+    });
+
 }
 
 function setCardBodyContent() {
@@ -72,6 +84,10 @@ function setCardBodyContent() {
     for(var i = 0 ; i < demoNum && i < industryList.length ; ++i){
         tmpText3 += (industryList[i]+" ")
     }
+    var tmpText4 = ""
+    for(var i = 0 ; i < demoNum && i < executiveList.length ; ++i){
+        tmpText4 += (executiveList[i]+" ")
+    }
 
 
     var cardBody = document.getElementById("cardBody")
@@ -79,6 +95,7 @@ function setCardBodyContent() {
     content += "股票代码有：" + tmpText1 + " ...<br>"
     content += "概念股有：" + tmpText2 + " ...<br>"
     content += "产业有：" + tmpText3 + " ...<br>"
+    content += "执行人有：" + tmpText4 + " ...<br>"
     content += "查看维度的所有值请点击链接 <a id = 'detailA' href='#'>详情</a><br>"
     content += "(输入参数建议复制粘贴，输入参数的个数避免过多，否则图过大难以准确显示，建议输入1、2个先尝试)<br>"
     content += "(可将鼠标置于图中并滑动(滚轴或者两根手指上下滑动)来缩放图；可按钮鼠标左键拖动图)"
@@ -126,6 +143,7 @@ function checkInput(choose, input) {
     if(choose == '股票代码') checkList = stockCodeList
     else if(choose == '概念股') checkList = conceptList
     else if(choose == '产业') checkList = industryList
+    else if(choose == '执行人') checkList = executiveList
 
     var inValidItem = []
     var validItem = []
@@ -152,6 +170,7 @@ function sendRequest(choose, data) {
     }
     else if(choose == '概念股') url = "http://ismzl.com:8300/concept/findConceptByName"
     else if(choose == '产业') url = "http://ismzl.com:8300/industry/findIndustryByName"
+    else if(choose == '执行人') url = "http://ismzl.com:8300/executive/findExecutiveByName"
 
     $.ajax({
              type : "POST",
@@ -266,6 +285,32 @@ function drawGraph(choose, content) {
                 company.name = company.stockCode + ""
                 data.push(company)
                 links.push({source: industry.id, target: company.id, name: '包含'})
+            }
+        }
+        //去除重复data
+        var validData = []
+        for(var index in data){
+            if(!validData.some(item => item.id == data[index].id)) validData.push(data[index])
+        }
+        data = validData
+    }
+    else if(choose == '执行人') {
+        categories = [{name: '执行人'}, {name: '股票'}]
+        for(var i = 0 ; i < content.length ; ++i){
+            //执行人
+            var executive = content[i].executive
+            executive.id = executive.id + ""
+            executive.category = 0
+            data.push(executive)
+            //股票
+            var companyList = content[i].companies
+            for(var index in companyList){
+                var company = companyList[index]
+                company.id = company.id + ""
+                company.category = 1
+                company.name = company.stockCode + ""
+                data.push(company)
+                links.push({source: executive.id, target: company.id, name: 'work-in'})
             }
         }
         //去除重复data

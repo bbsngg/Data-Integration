@@ -2,6 +2,7 @@
 var stockCodeList = [] //股票代码list
 var conceptList = [] //概念股list
 var industryList = [] //产业list
+var executiveList = [] //执行人list
 
 window.onload = function () {
     //请求数据
@@ -51,16 +52,31 @@ function getBaseData() {
                 }
             }
         });
+
+    $.ajax({
+        type: "GET",
+        url: 'http://ismzl.com:8300/executive/getAllName',
+        async: false,
+        success: function (res) {
+            if (!res.success) {
+                alert("查询所有执行人出错: " + res.message)
+            } else {
+                executiveList = res.content
+            }
+        }
+    });
 }
 
 function setData() {
     var stockArea = document.getElementById("stockArea")
     var conceptArea = document.getElementById("conceptArea")
     var industryArea = document.getElementById("industryArea")
+    var executiveArea = document.getElementById("executiveArea")
 
     var tmpText1 = ""
     var tmpText2 = ""
     var tmpText3 = ""
+    var tmpText4 = ""
     for(var index in stockCodeList){
         tmpText1 += (stockCodeList[index] + " ")
     }
@@ -69,6 +85,9 @@ function setData() {
     }
     for(var index in industryList){
         tmpText3 += (industryList[index] + " ")
+    }
+    for(var index in executiveList){
+        tmpText4 += (executiveList[index] + " ")
     }
 
     stockArea.innerText = tmpText1
@@ -79,4 +98,7 @@ function setData() {
 
     industryArea.innerText = tmpText3
     industryArea.setAttribute("disabled", "true")
+
+    executiveArea.innerText = tmpText4
+    executiveArea.setAttribute("disabled", "true")
 }
