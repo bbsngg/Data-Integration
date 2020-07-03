@@ -1,6 +1,6 @@
-from my_question_classifier import *
-from my_question_parser import *
-from my_answer_search import *
+from question_classifier import *
+from question_parser import *
+from answer_search import *
 
 '''问答类'''
 class ChatBotGraph:
