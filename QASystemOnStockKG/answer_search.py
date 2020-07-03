@@ -4,10 +4,10 @@ from py2neo import Graph
 class AnswerSearcher:
     def __init__(self):
         self.g = Graph(
-            host="127.0.0.1",
+            host="ismzl.com",
             http_port=7474,
             user="neo4j",
-            password="222")
+            password="neo4j")
 
         self.num_limit = 200  # todo?
 

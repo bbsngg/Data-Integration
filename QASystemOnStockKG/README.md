@@ -18,7 +18,7 @@ self-implement of disease centered Medical graph from zero to full and sever as 
 
 # 项目运行方式
 1、配置要求：要求配置neo4j数据库及相应的python依赖包。修改answer_search.py的neo4j配置。 
-2、启动问答：python chat_graph.py
+2、启动问答：python chatbot_graph.py
 
 # 以下介绍详细方案
 # 一、医疗知识图谱构建

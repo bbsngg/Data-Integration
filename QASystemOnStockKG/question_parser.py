@@ -87,64 +87,64 @@ class QuestionPaser:
         sql = []
         # 股票公司
         if question_type == 'company_corp':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.company_name".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.company_name".format(i) for i in entities]
 
         # 股票省份
         elif question_type == 'company_province':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.location".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.location".format(i) for i in entities]
 
         # 股票代码
         elif question_type == 'company_code':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.stock_code".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.stock_code".format(i) for i in entities]
 
         # 股票公司服务
         elif question_type == 'company_business':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.business".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.business".format(i) for i in entities]
 
         # 股票股东
         elif question_type == 'company_shareholder':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.shareholder".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.shareholder".format(i) for i in entities]
 
         # 股票资产
         elif question_type == 'company_capital':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.capital".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.capital".format(i) for i in entities]
 
         # 股票单价
         elif question_type == 'company_price':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.price".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.price".format(i) for i in entities]
 
         # 股票开盘价
         elif question_type == 'company_openprice':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.opening_price".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.opening_price".format(i) for i in entities]
 
         # 股票承销商
         elif question_type == 'company_underwriter':
-            sql = ["MATCH (m:Company) where m.name = '{0}' return m.name, m.underwriter".format(i) for i in entities]
+            sql = ["MATCH (m:company) where m.name = '{0}' return m.name, m.underwriter".format(i) for i in entities]
 
 
         # 股票概念
         elif question_type == 'company_concept':
-            sql = ["MATCH (m:Company)-[r:belong]->(n:Concept) where m.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
+            sql = ["MATCH (m:company)-[r:belong]->(n:concept) where m.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
 
         # 已知概念找股票
         elif question_type == 'concept_company':
-            sql = ["MATCH (m:Company)-[r:belong]->(n:Concept) where n.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
+            sql = ["MATCH (m:company)-[r:belong]->(n:concept) where n.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
 
         # 股票产业
         elif question_type == 'company_industry':
-            sql = ["MATCH (m:Company)-[r:include]->(n:Industry) where m.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
+            sql = ["MATCH (m:company)-[r:include]->(n:industry) where m.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
 
         # 已知产业找股票
         elif question_type == 'industry_company':
-            sql = ["MATCH (m:Company)-[r:include]->(n:Industry) where n.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
+            sql = ["MATCH (m:company)-[r:include]->(n:industry) where n.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
 
         # 股票董事
         elif question_type == 'company_executive':
-            sql = ["MATCH (m:Executive)-[r:work_in]->(n:Company) where m.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
+            sql = ["MATCH (m:executive)-[r:work_in]->(n:company) where m.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
 
         # 已知董事找股票
         elif question_type == 'executive_company':
-            sql = ["MATCH (m:Executive)-[r:work_in]->(n:Company) where n.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
+            sql = ["MATCH (m:executive)-[r:work_in]->(n:)company where n.name = '{0}' return m.name, r.name, n.name".format(i) for i in entities]
 
         return sql
 
