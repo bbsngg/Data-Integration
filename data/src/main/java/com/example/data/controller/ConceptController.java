@@ -1,7 +1,5 @@
 package com.example.data.controller;
 
-import com.example.data.po.Concept;
-import com.example.data.service.CompanyService;
 import com.example.data.service.ConceptService;
 import com.example.data.vo.ResponseVO;
 import io.swagger.annotations.ApiOperation;
@@ -21,10 +19,17 @@ public class ConceptController {
     this.service = service;
   }
 
-  @ApiOperation("获取所有概念代码")
-  @GetMapping("/getAllId")
-  public ResponseVO getAllId(){
-    return service.getAllId();
+  @ApiOperation("获取所有概念名字")
+  @GetMapping("/getAllName")
+  public ResponseVO getAllName(){
+    return service.getAllName();
+  }
+
+
+  @ApiOperation("获取多个概念的相关信息，根据概念名")
+  @PostMapping("/findConceptByName")
+  public ResponseVO findConceptByName(@RequestBody List<String> list){
+    return service.findConceptByName(list);
   }
 
 }

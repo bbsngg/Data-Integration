@@ -75,12 +75,7 @@ public class CompanyServiceImpl implements CompanyService {
   @Override
   public ResponseVO getAllStockCode() {
     try{
-      List<Company> list = companyRepository.findAll();
-      List<Long> ret = new ArrayList<>();
-      for (Company temp: list){
-        ret.add(temp.getStockCode());
-      }
-      return ResponseVO.buildSuccess(ret);
+      return ResponseVO.buildSuccess(companyRepository.findAllStockCode());
     }
     catch (Exception e){
       System.out.println("获取所有股票的代号失败");

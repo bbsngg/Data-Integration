@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>数据集成路线三</title>
+    <!--    boostarp的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!--    bootstrap和jquery-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="js/jquery.min.js"></script>
+    <!--    ecahts.js-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+
+  </head>
+
+  <body>
+    <div class="container" style="font-family: KaiTi ; font-size: larger">
+
+      <!--      说明card -->
+      <div class="accordion" id="accordionExample">
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                点击查看说明
+              </button>
+            </h2>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div id = "cardBody" class="card-body">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 下拉菜单，选择查看的维度 -->
+      <div class="btn-group" style="margin-top: 1vh">
+        <button id = "dropDownBtn" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 10vw">选择查看维度</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">股票代码</a>
+          <a class="dropdown-item" href="#">概念股</a>
+          <a class="dropdown-item" href="#">产业</a>
+        </div>
+        <button id = "queryBtn" type="button" class="btn btn-secondary" style="width: 6vw ; margin-left: 43.8vw">
+          query
+        </button>
+      </div>
+
+      <!--      输入框-->
+      <div class="input-group" style="margin-top: 1vh ; height: 10vh">
+        <textarea id="inputArea" class="form-control" aria-label="With textarea" placeholder="输入筛选参数，数据之间用空格隔开。不知道有哪些参数？点击查看说明..."></textarea>
+      </div>
+    </div>
+
+    <!--      数据展示-->
+    <div id = "dataShowWrapperDiv" style="margin-top: 2vh">
+
+    </div>
+
+
+
+    <script src="js/index.js"></script>
+  </body>
+
+
+</html>
+
