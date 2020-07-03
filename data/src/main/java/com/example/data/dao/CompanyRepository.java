@@ -19,4 +19,8 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
   List<Company> findByIndustryId(Long industryId);
 
+
+  @Query("select c.stockCode from Company c")
+  List<Long> findAllStockCode();
+
 }
