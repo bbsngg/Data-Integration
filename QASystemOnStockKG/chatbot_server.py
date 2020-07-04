@@ -18,6 +18,8 @@ class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if(len(self.path.split('=')) == 2):
             question = self.path.split('=')[1]
+            print(parse.unquote(question))
+            print(type(question))
             self.send_response(200)
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
