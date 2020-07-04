@@ -29,7 +29,7 @@ function setQueryBtnListener() {
 }
 
 function sendRequest(question) {
-    var url = "http://localhost:8100/query?question=" + question;//ismzl.com
+    var url = "http://ismzl.com:8100/query?question=" + question;//ismzl.com
     var res
     $.ajax({
         type : "get",
