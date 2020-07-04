@@ -1,14 +1,14 @@
-# QABasedOnMedicaKnowledgeGraph
-self-implement of disease centered Medical graph from zero to full and sever as question answering base. 从无到有搭建一个以疾病为中心的一定规模医药领域知识图谱，并以该知识图谱完成自动问答与分析服务。
+# QABasedOnStockKnowledgeGraph
+从无到有搭建一个以股票为中心的一定规模领域知识图谱，并以该知识图谱完成自动问答与分析服务。
 
 # 项目介绍
 
-知识图谱是目前自然语言处理的一个热门方向，关于较全面的参考资料，可以查看我的ccks2018参会总结(https://github.com/liuhuanyong/CCKS2018Summary )。  
-与知识图谱相关的另一种形态，即事理图谱，本人在这方面也尝试性地积累了一些工作，可参考：(https://github.com/liuhuanyong/ComplexEventExtraction )  
-关于知识图谱概念性的介绍就不在此赘述。目前知识图谱在各个领域全面开花，如教育、医疗、司法、金融等。本项目立足医药领域，以垂直型医药网站为数据来源，以疾病为核心，构建起一个包含7类规模为4.4万的知识实体，11类规模约30万实体关系的知识图谱。
+本项目基于作业第一阶段集成的来自同花顺金融服务网与TuShare网站的数据，以股票为核心，构建了一个包含4类规模为2.2万的知识实体，11类规模约3.6万实体关系的股票知识图谱，并依托于知识图谱数据构建了股票自动问答系统。
+
 本项目将包括以下两部分的内容：
-1) 基于垂直网站数据的医药知识图谱构建
-2) 基于医药知识图谱的自动问答
+
+1) 基于垂直网站数据的股票知识图谱构建
+2) 基于股票知识图谱的自动问答
 
 # 项目最终效果
 话不多少，直接上图。以下两图是实际问答运行过程中的截图：
@@ -21,7 +21,7 @@ self-implement of disease centered Medical graph from zero to full and sever as 
 2、启动问答：python chatbot_graph.py
 
 # 以下介绍详细方案
-# 一、医疗知识图谱构建
+# 一、股票知识图谱构建
 # 1.1 业务驱动的知识图谱构建框架
 ![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/kg_route.png)
 
@@ -39,22 +39,21 @@ build_medicalgraph.py：知识图谱入库脚本    　　
 
 | 实体类型 | 中文含义 | 实体数量 |举例 |
 | :--- | :---: | :---: | :--- |
-| Company | 股票 | 2,873 | 黄山Ｂ股|
+| Company | 股票 | 2,876 | 黄山Ｂ股|
 | Concept | 概念 | 162 |  赛马概念|
 | Industry| 产业 | 49 |  钢铁行业|
-| Province| 省份 | 31 |  安徽省|
-| Executive| 董事 | 19,211 | 宋杰 |
-| Total | 总计 |  | 级|
+| Executive| 董事 | 24,775 | 宋杰 |
+| Total | 总计 | 27,862 | 2.7万级 |
 
 
 1.3.3 知识图谱实体关系类型
 
 | 实体关系类型 | 中文含义 | 关系数量 | 举例|
 | :--- | :---: | :---: | :--- |
-| belong | 属于 | | <黄山Ｂ股,属于,赛马概念>|
-| include | 包含于 |  | <黄山Ｂ股,包含于,钢铁行业>|
-| work-in | 作为董事于 | | <宋杰,作为董事于,黄山Ｂ股>|
-| Total | 总计 |  | |
+| belong | 属于 | 8,978 | <黄山Ｂ股,属于,赛马概念>|
+| include | 包含于 | 2,875 | <黄山Ｂ股,包含于,钢铁行业>|
+| work-in | 作为董事于 | 24,775 | <宋杰,作为董事于,黄山Ｂ股>|
+| Total | 总计 | 36,628 | 3.6万级 |
 
 1.3.4 知识图谱属性类型
 

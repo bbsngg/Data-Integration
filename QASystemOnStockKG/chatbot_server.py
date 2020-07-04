@@ -6,6 +6,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import cgi
 import urllib.parse as parse
 
+
 handler = ChatBotGraph()
 
 class MyHandler(BaseHTTPRequestHandler):
@@ -22,9 +23,12 @@ class MyHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
+            question = parse.unquote(question)
 
+            print(question)
             answer = handler.chat_main(question)
             self.wfile.write(answer.encode('utf-8'))
+
     def do_POST(self):
         self.send_header('Access-Control-Allow-Origin', '*')
         form = cgi.FieldStorage(
@@ -40,7 +44,7 @@ class MyHandler(BaseHTTPRequestHandler):
         question = form['question'].value  # 获取问题数据
 
         # question = input('用户:')
-        answer = self.handler.chat_main(question)
+        answer = handler.chat_main(question)
         # print('小宋:', answer)
         self.wfile.write(answer)
 

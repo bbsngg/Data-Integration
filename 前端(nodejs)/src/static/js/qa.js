@@ -26,6 +26,9 @@ function setQueryBtnListener() {
         var answerArea = document.getElementById("answerArea");
         answerArea.innerHTML = ''
     })
+    document.getElementById("qaDemo").addEventListener('click', function() {
+        window.open('qademo.html')
+    })
 }
 
 function sendRequest(question) {
