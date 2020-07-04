@@ -71,6 +71,12 @@ class QuestionPaser:
             elif question_type == 'company_underwriter':
                 sql = self.sql_transfer(question_type, entity_dict.get('company'))
 
+            elif question_type == 'company_risk':
+                sql = self.sql_transfer(question_type, entity_dict.get('company'))
+
+            elif question_type == 'executive_risk':
+                sql = self.sql_transfer(question_type, entity_dict.get('executive'))
+
             if sql:
                 sql_['sql'] = sql
 
@@ -145,6 +151,21 @@ class QuestionPaser:
         # 已知董事找股票
         elif question_type == 'executive_company':
             sql = ["MATCH (m:executive)-[r:`work-in`]->(n:company) where m.name = '{0}' return m.name, n.stock_name".format(i) for i in entities]
+
+
+        # 股票风险评估
+        elif question_type == 'company_risk':
+            sql = ["match (coa:concept)<-[rco:belong]-(ca:company)<-[r0:`work-in`]-(ea:executive), (ina:industry)<-[rin:include]-(ca:company)  where ca.stock_name='{0}' with ca,r0,ea,coa,rco,ina,rin " \
+                   "match (cb:company)<-[r1:`work-in`]-(eb:executive) where eb.name=ea.name and eb.age=ea.age and eb.sex=ea.sex " \
+                   "return cb.stock_name,cb.capital,cb.business,ca.underwriter,ca.price,ca.opening_price,ca.stock_name,ca.stock_code,ca.company_name,ca.business,ca.capital,ea.name,coa.name,ina.name".format(i) for i in entities]
+
+        # 董事风险评估
+        elif question_type == 'executive_risk':
+            sql = ["match (ea0:executive) where ea0.name='{0}' with ea0 " \
+                   "match (coa:concept)<-[rco:belong]-(ca:company)<-[r0:`work-in`]-(ea:executive), (ina:industry)<-[rin:include]-(ca:company) where ea.name=ea0.name and ea.age=ea0.age and ea.sex=ea0.sex with ca,ea,coa,ina,rco,r0,rin " \
+                   "match (ca:company)<-[r1:`work-in`]-(eb:executive) with ca,ea,coa,ina,rco,r0,rin,r1,eb " \
+                   "match (ec:executive)-[r2:`work-in`]->(cb:company) where ec.name=eb.name and ec.age=eb.age and ec.sex=eb.sex " \
+                   "return cb.stock_name,cb.capital,cb.business,ca.underwriter,ca.price,ca.opening_price,ca.stock_name,ca.stock_code,ca.company_name,ca.business,ca.capital,ea.name,ea.age,ea.sex,coa.name,ina.name".format(i) for i in entities]
 
         return sql
 

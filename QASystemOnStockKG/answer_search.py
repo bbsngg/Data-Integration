@@ -1,5 +1,5 @@
 from py2neo import Graph
-
+import pprint
 
 class AnswerSearcher:
     def __init__(self):
@@ -110,6 +110,50 @@ class AnswerSearcher:
             desc = [i['m.underwriter'] for i in answers]
             subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的经销商为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
+
+        elif question_type == 'company_risk':
+            final_answer = '\n******************************************************************************************\n'
+            final_answer += '\n股票名：{0}          股票代码：{1} \n'.format(answers[0]['ca.stock_name'], answers[0]['ca.stock_code'])
+            final_answer += '董事信息：{0} \n'.format('；'.join(list(set([i['ea.name'] for i in answers]))[:self.num_limit]))
+            final_answer += '所属产业：{0} \n'.format('；'.join(list(set([i['ina.name'] for i in answers]))[:self.num_limit]))
+            final_answer += '所属概念：{0} \n'.format('；'.join(list(set([i['coa.name'] for i in answers]))[:self.num_limit]))
+            final_answer += '所属公司：{0} \n'.format('；'.join(list(set([i['ca.company_name'] for i in answers]))[:self.num_limit]))
+            final_answer += '业务范围：{0} \n'.format('；'.join(list(set([i['ca.business'] for i in answers]))[:self.num_limit]))
+            final_answer += '资产信息：总资产 {0}，每股价格 {1}，开盘价 {2} \n'\
+                .format('；'.join(list(set([i['ca.capital'] for i in answers]))[:self.num_limit]),
+                        '；'.join(list(set([i['ca.price'] for i in answers]))[:self.num_limit]),
+                        '；'.join(list(set([i['ca.opening_price'] for i in answers]))[:self.num_limit]))
+            final_answer += '经销商：{0} \n'.format('；'.join(list(set([i['ca.underwriter'] for i in answers]))[:self.num_limit]))
+
+            final_answer += '\n其他相关信息：\n'
+            final_answer += '董事所有的股票名：{0} \n'.format('；'.join(list(set([i['cb.stock_name'] for i in answers]))[:self.num_limit]))
+            final_answer += '对应资产信息：{0} \n'.format('；'.join(list(set([i['cb.capital'] for i in answers]))[:self.num_limit]))
+            final_answer += '对应业务范围：{0} \n'.format('；'.join(list(set([i['cb.business'] for i in answers]))[:self.num_limit]))
+
+            final_answer += '\n******************************************************************************************'
+
+        elif question_type == 'executive_risk':
+            final_answer = '\n******************************************************************************************\n'
+            final_answer += '\n董事姓名：{0}    年龄：{1}   性别：{2}\n'.format(answers[0]['ea.name'], answers[0]['ea.age'], answers[0]['ea.sex'])
+            final_answer += '股票信息：股票名 {0}  股票代码 {1}\n'.\
+                format('；'.join(list(set([i['ca.stock_name'] for i in answers]))[:self.num_limit]),
+                       '；'.join(list(set([str(i['ca.stock_code']) for i in answers]))[:self.num_limit]))
+            final_answer += '所属产业：{0} \n'.format('；'.join(list(set([i['ina.name'] for i in answers]))[:self.num_limit]))
+            final_answer += '所属概念：{0} \n'.format('；'.join(list(set([i['coa.name'] for i in answers]))[:self.num_limit]))
+            final_answer += '所属公司：{0} \n'.format('；'.join(list(set([i['ca.company_name'] for i in answers]))[:self.num_limit]))
+            final_answer += '业务范围：{0} \n'.format('；'.join(list(set([i['ca.business'] for i in answers]))[:self.num_limit]))
+            final_answer += '资产信息：总资产 {0}，每股价格 {1}，开盘价 {2} \n'\
+                .format('；'.join(list(set([i['ca.capital'] for i in answers]))[:self.num_limit]),
+                        '；'.join(list(set([i['ca.price'] for i in answers]))[:self.num_limit]),
+                        '；'.join(list(set([i['ca.opening_price'] for i in answers]))[:self.num_limit]))
+            final_answer += '经销商：{0} \n'.format('；'.join(list(set([i['ca.underwriter'] for i in answers]))[:self.num_limit]))
+
+            final_answer += '\n其他相关信息：\n'
+            final_answer += '董事所有的股票名：{0} \n'.format('；'.join(list(set([i['cb.stock_name'] for i in answers]))[:self.num_limit]))
+            final_answer += '对应资产信息：{0} \n'.format('；'.join(list(set([i['cb.capital'] for i in answers]))[:self.num_limit]))
+            final_answer += '对应业务范围：{0} \n'.format('；'.join(list(set([i['cb.business'] for i in answers]))[:self.num_limit]))
+
+            final_answer += '\n******************************************************************************************'
 
         return final_answer
 

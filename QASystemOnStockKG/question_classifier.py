@@ -33,7 +33,7 @@ class QuestionClassifier:
         self.company_qwds = ['股票', '只股', '股份', 'stock']
         self.concept_qwds = ['概念', '特色', '热点']
         self.industry_qwds = ['产业', '行业', '板块', '领域']
-        self.executive_qwds = ['董事', '执行人', '参股人', '执行董事', '股东', '持有', '有哪些股']
+        self.executive_qwds = ['董事', '执行人', '参股', '执行董事', '股东', '持有', '有哪些股', '参与']
 
         self.corp_qwds = ['公司', '投资商']
         self.province_qwds = ['所在地', '地址', '所处', '省份', '地区']
@@ -44,6 +44,7 @@ class QuestionClassifier:
         self.price_qwds = ['每股', '单价', '价格']
         self.openprice_qwds = ['开盘价']
         self.underwriter_qwds = ['承销商', '经销商', '包销商', '承保']
+        self.risk_qwds = ['怎么样', '风险', '评估', '评价', '怎么看', '测评', '风控', '预测', '预估', '值得', '应该投', '保险']
 
         print('model init finished ......')
 
@@ -134,6 +135,16 @@ class QuestionClassifier:
         # 经销商
         if self.check_words(self.underwriter_qwds, question) and 'company' in types :
             question_type = 'company_underwriter'
+            question_types.append(question_type)
+
+        # 预估股票
+        if self.check_words(self.risk_qwds, question) and 'company' in types :
+            question_type = 'company_risk'
+            question_types.append(question_type)
+
+        # 预估董事
+        if self.check_words(self.risk_qwds, question) and 'executive' in types :
+            question_type = 'executive_risk'
             question_types.append(question_type)
 
         # 若没有查到相关的外部查询信息，那么则将该股票的名字信息返回
