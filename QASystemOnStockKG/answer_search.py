@@ -22,6 +22,7 @@ class AnswerSearcher:
             for query in queries:
                 ress = self.g.run(query).data()
                 answers += ress
+            print(answers)
             final_answer = self.answer_prettify(question_type, answers)
             if final_answer:
                 final_answers.append(final_answer)
@@ -37,77 +38,77 @@ class AnswerSearcher:
 
         if question_type == 'company_concept':
             desc = [i['n.name'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '{0}所属的概念包括：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'concept_company':
-            desc = [i['m.name'] for i in answers]
+            desc = [i['m.stock_name'] for i in answers]
             subject = answers[0]['n.name']
             final_answer = '概念{0}包含的股票有：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_industry':
             desc = [i['n.name'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '{0}所属的产业为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'industry_company':
-            desc = [i['m.name'] for i in answers]
+            desc = [i['m.stock_name'] for i in answers]
             subject = answers[0]['n.name']
             final_answer = '产业{0}包含的股票有：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_executive':
-            desc = [i['n.name'] for i in answers]
+            desc = [i['m.name'] for i in answers]
+            subject = answers[0]['n.stock_name']
+            final_answer = '股票{0}的董事成员包括：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
+
+        elif question_type == 'executive_company':
+            desc = [i['n.stock_name'] for i in answers]
             subject = answers[0]['m.name']
             final_answer = '{0}作为董事成员的股票有：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
-        elif question_type == 'executive_company':
-            desc = [i['m.name'] for i in answers]
-            subject = answers[0]['n.name']
-            final_answer = '股票{0}的董事成员包括：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
-
         elif question_type == 'company_corp':
             desc = [i['m.company_name'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的公司为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_province':
             desc = [i['m.location'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}所在的省份为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_code':
-            desc = [i['m.stock_code'] for i in answers]
-            subject = answers[0]['m.name']
+            desc = [str(i['m.stock_code']) for i in answers]
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的股票代码为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_business':
             desc = [i['m.business'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的主要业务内容为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_shareholder':
             desc = [i['m.shareholder'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的主要股东为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_capital':
             desc = [i['m.capital'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的资产有：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_price':
             desc = [i['m.price'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的每股价格为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_openprice':
             desc = [i['m.opening_price'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的开盘价为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         elif question_type == 'company_underwriter':
             desc = [i['m.underwriter'] for i in answers]
-            subject = answers[0]['m.name']
+            subject = answers[0]['m.stock_name']
             final_answer = '股票{0}的经销商为：{1}'.format(subject, '；'.join(list(set(desc))[:self.num_limit]))
 
         return final_answer

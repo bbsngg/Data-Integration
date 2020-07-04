@@ -98,9 +98,9 @@ chatbot_graph.py：问答程序脚本
 | :--- | :---: | :---: |
 | company_concept | 股票概念| 黄山Ｂ股的概念有哪些？ |
 | concept_company | 已知概念找股票 | 赛马概念有哪些？ |
-| company_industry | 股票产业 | 黄山Ｂ股的所属产业是什么？ |
+| company_industry | 股票产业 | 黄山Ｂ股的所属产业是什么？ 古井贡酒的所属产业是什么？|
 | industry_company | 已知产业找股票 | 钢铁行业有哪些？ |
-| company_executive | 股票董事 | 黄山Ｂ股的董事有哪些？ |
+| company_executive | 股票董事 | 黄山Ｂ股的董事有哪些？ 古井贡酒的董事有哪些？|
 | executive_company | 已知董事找股票 | 宋杰持有哪些股票？ |
 | company_corp | 股票公司 | 黄山Ｂ股的公司是什么？|
 | company_province | 股票省份| 黄山Ｂ股的所在地？ |
