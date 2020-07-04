@@ -4,7 +4,7 @@ from chatbot_graph import ChatBotGraph
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import cgi
-
+import urllib.parse as parse
 
 handler = ChatBotGraph()
 
@@ -17,6 +17,8 @@ class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if(len(self.path.split('=')) == 2):
             question = self.path.split('=')[1]
+            print(parse.unquote(question))
+            print(type(question))
             self.send_response(200)
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
