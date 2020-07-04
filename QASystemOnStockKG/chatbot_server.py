@@ -6,16 +6,25 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import cgi
 
 
+handler = ChatBotGraph()
+
 class MyHandler(BaseHTTPRequestHandler):
 
     def __init__(self, request: bytes, client_address: Tuple[str, int], server: socketserver.BaseServer):
         super().__init__(request, client_address, server)
-        self.handler = ChatBotGraph()
+        # self.handler = ChatBotGraph()
 
     def do_GET(self):
-        self.wfile.write("这是一个http后台服务。".encode())
+        if(len(self.path.split('=')) == 2):
+            question = self.path.split('=')[1]
+            self.send_response(200)
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
 
+            answer = handler.chat_main(question)
+            self.wfile.write(answer.encode('utf-8'))
     def do_POST(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
         form = cgi.FieldStorage(
             fp=self.rfile,
             headers=self.headers,
@@ -36,7 +45,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
 def main():
     try:
-        server = HTTPServer(('127.0.0.1', 8100), MyHandler)  # 启动服务
+        server = HTTPServer(('', 8100), MyHandler)  # 启动服务
         print('welcome to  the  server.......')
         server.serve_forever()  # 一直运行
     except KeyboardInterrupt:

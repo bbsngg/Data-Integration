@@ -1,0 +1,4 @@
+将数据从mysql迁移到neo4j
+mysql操作使用pymysql
+neo4j使用py2neo
+pip install xxx -i https://pypi.tuna.tsinghua.edu.cn/simple

@@ -13,6 +13,8 @@ window.onload = function() {
     setDropdownItemListener()
     //设置查询按钮监听
     setQueryBtnListener()
+    //设置qa按钮的监听
+    setQaBtnListener()
 }
 
 function getBaseData() {
@@ -413,4 +415,10 @@ function echartsDrawGraph(categories, data, links) {
         }]
     };
     myChart.setOption(option);
+}
+
+function setQaBtnListener(){
+    document.getElementById("qaBtn").addEventListener('click', function(){
+        window.open('/qa.html')
+    })
 }
