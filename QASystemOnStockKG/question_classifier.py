@@ -33,18 +33,18 @@ class QuestionClassifier:
         self.company_qwds = ['股票', '只股', '股份', 'stock']
         self.concept_qwds = ['概念', '特色', '热点']
         self.industry_qwds = ['产业', '行业', '板块', '领域']
-        self.executive_qwds = ['董事', '执行人', '参股', '执行董事', '股东', '持有', '有哪些股', '参与']
+        self.executive_qwds = ['董事', '执行人', '参股', '执行董事', '股东', '持有', '有哪些股', '参与', '负责']
 
         self.corp_qwds = ['公司', '投资商']
-        self.province_qwds = ['所在地', '地址', '所处', '省份', '地区']
-        self.code_qwds = ['代码', '代号', '股票码']
-        self.business_qwds = ['业务', '服务', '商务内容']
+        self.province_qwds = ['所在地', '地址', '所处', '省', '地区', '在哪', '哪儿', '市']
+        self.code_qwds = ['代码', '代号', '股票码', '号码', '多少号']
+        self.business_qwds = ['业务', '服务', '商务内容', '干嘛', '做啥', '干啥']
         self.shareholder_qwds = ['股东']
-        self.capital_qwds = ['资产', '资本', '多少钱']
-        self.price_qwds = ['每股', '单价', '价格']
-        self.openprice_qwds = ['开盘价']
+        self.capital_qwds = ['资产', '资本', '多少钱', '总资']
+        self.price_qwds = ['每股', '单价', '价格', '多贵', '怎么买', '多少钱', '几块', '多钱', '要多少']
+        self.openprice_qwds = ['开盘', '初始单价', '初始价']
         self.underwriter_qwds = ['承销商', '经销商', '包销商', '承保']
-        self.risk_qwds = ['怎么样', '风险', '评估', '评价', '怎么看', '测评', '风控', '预测', '预估', '值得', '应该投', '保险']
+        self.risk_qwds = ['怎么样', '风险', '评估', '评价', '怎么看', '测评', '风控', '预测', '预估', '值得', '应该投', '保险', '行吗']
 
         print('model init finished ......')
 

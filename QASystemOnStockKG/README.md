@@ -1,41 +1,44 @@
-# QABasedOnStockKnowledgeGraph
-从无到有搭建一个以股票为中心的一定规模领域知识图谱，并以该知识图谱完成自动问答与分析服务。
+# 数据分析报告——QABasedOnStockKG
+
+*路线三 11组：宋定杰 171250628、李辰辉 171250645、梁斌 171830506、陈维烨 17125059*
+
+本项目以知识图谱为理论指导对股票数据进行分析，并最终从0到1搭建一个以股票为中心有一定规模的领域知识图谱，并以该知识图谱完成自动问答与分析服务。
 
 # 项目介绍
 
-本项目基于作业第一阶段集成的来自同花顺金融服务网与TuShare网站的数据，以股票为核心，构建了一个包含4类规模为2.2万的知识实体，11类规模约3.6万实体关系的股票知识图谱，并依托于知识图谱数据构建了股票自动问答系统。
+本项目基于作业二集成的来自同花顺金融服务网http://pycs.greedyai.com/与tushare网站https://tushare.pro/的数据，以股票为核心，构建了一个包含4类规模为2.2万的知识实体，11类规模约3.6万实体关系的股票知识图谱，并依托于知识图谱数据构建了股票自动问答系统，可支持问答内容包括股票的各类属性信息与有关股票和董事的评估报告。
 
 本项目将包括以下两部分的内容：
 
-1) 基于垂直网站数据的股票知识图谱构建
-2) 基于股票知识图谱的自动问答
+1. 基于金融网站数据的股票知识图谱构建
+2.  基于股票知识图谱的自动问答
 
 # 项目最终效果
-话不多少，直接上图。以下两图是实际问答运行过程中的截图：
-![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/chat1.png)
+以下两图是实际问答运行过程中的截图：
+![image-20200704185833268](/Users/sdj/Library/Application Support/typora-user-images/image-20200704185833268.png)
 
-![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/chat2.png)
+![image-20200704185902488](/Users/sdj/Library/Application Support/typora-user-images/image-20200704185902488.png)
+
+![image-20200704185930081](/Users/sdj/Library/Application Support/typora-user-images/image-20200704185930081.png)
 
 # 项目运行方式
-1、配置要求：要求配置neo4j数据库及相应的python依赖包。修改answer_search.py的neo4j配置。 
-2、启动问答脚本：python chatbot.py
 
-# 以下介绍详细方案
+登入http://ismzl.com:3000/qa.html#，在Question栏目输入想问的问题，点击右下角的query按钮即可得到答案。若不熟悉提问内容，可在上方点击查看示例，提问语句的格式有较大自由度，可按照自身需求使用。
+
+# 介绍详细方案
 # 一、股票知识图谱构建
-# 1.1 业务驱动的知识图谱构建框架
-![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/kg_route.png)
+## 1.1 知识图谱构建脚本目录
 
-# 1.2 脚本目录
-prepare_data/datasoider.py：网络资讯采集脚本  
-prepare_data/datasoider.py：网络资讯采集脚本  
-prepare_data/max_cut.py：基于词典的最大向前/向后切分脚本  
-build_medicalgraph.py：知识图谱入库脚本
+爬虫代码文件存放位置：
 
-# 1.3 医药领域知识图谱规模
-1.3.1 neo4j图数据库存储规模
-![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/graph_summary.png)
+https://github.com/bbsngg/Data-Integration/tree/master/SecuritiesKnowlegeGraph
 
-1.3.2 知识图谱实体类型
+## 1.2 股票领域知识图谱规模
+### 1.2.1 neo4j图数据库存储规模
+
+![image-20200704191637659](/Users/sdj/Library/Application Support/typora-user-images/image-20200704191637659.png)
+
+### 1.2.2 知识图谱实体类型
 
 | 实体类型 | 中文含义 | 实体数量 |举例 |
 | :--- | :---: | :---: | :--- |
@@ -45,8 +48,7 @@ build_medicalgraph.py：知识图谱入库脚本
 | Executive| 董事 | 24,775 | 宋杰 |
 | Total | 总计 | 27,862 | 2.7万级 |
 
-
-1.3.3 知识图谱实体关系类型
+### 1.2.3 知识图谱实体关系类型
 
 | 实体关系类型 | 中文含义 | 关系数量 | 举例|
 | :--- | :---: | :---: | :--- |
@@ -55,43 +57,72 @@ build_medicalgraph.py：知识图谱入库脚本
 | work-in | 作为董事于 | 24,775 | <宋杰,作为董事于,黄山Ｂ股>|
 | Total | 总计 | 36,628 | 3.6万级 |
 
-1.3.4 知识图谱属性类型
+### 1.2.4 知识图谱属性类型
 
-| 属性类型 | 中文含义 | 举例 |
-| :--- | :---: | :---: |
-|stock_code|股票代码||
-|company_name|公司名||
-|executive |大董事||
-|location|地址||
-|industry_id|产业id||
-|industry |产业（细）||
-|business |服务||
-|shareholder|股东||
-|capital|资本||
-|business_address|  ||
-|circulation|  ||
-|price| 单价 ||
-|pe|  ||
-|fundraising|  ||
-|opening_price| 开盘价 ||
-|wining_rate|  ||
-|actual_fundrasing|  ||
-|underwriter| 承销商 ||
-|stock_name|  ||
-|actual_fundraising|  ||
-|captial|  ||
-|share_holder|  ||
+| 字段               | 类型    | 含义     | 举例 |
+| ------------------ | ------- | -------- | ---- |
+| id                 | bigint  | 主键id   | 主键 |
+| stock_code         | bigint  | 股票代码 | 键   |
+| company_name       | varchar | 公司名称 |      |
+| executive          | varchar | 董事长   |      |
+| location           | varchar | 公司地址 |      |
+| industry_id        | bigint  | 行业id   |      |
+| industry           | varchar | 行业名称 |      |
+| business           | varchar | 主营业务 |      |
+| shareholder        | varchar | 股东     |      |
+| capital            | varchar | 注册资本 |      |
+| business_address   | varchar | 办公地点 |      |
+| circulation        | varchar | 发行量   |      |
+| price              | varchar | 发行价   |      |
+| pe                 | varchar | 市盈率   |      |
+| fundraising        | varchar | 预计募资 |      |
+| opening_price      | varchar | 开盘价   |      |
+| wining_rate        | varchar | 中签率   |      |
+| actual_fundraising | varchar | 实际募资 |      |
+| underwriter        | varchar | 主承销商 |      |
+| stock_name         | varchar | 股票名称 |      |
 
 # 二、基于股票知识图谱的自动问答
-# 2.1 技术架构
-![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/qa_route.png)
+## 2.1 技术架构
 
-# 2.2 脚本结构
-question_classifier.py：问句类型分类脚本
-question_parser.py：问句解析脚本
-chatbot_graph.py：问答程序脚本  
+知识问答系统的总架构分为四个大模块：预处理与问题理解、问句解析、知识检索答案生成。在每个大模块里包含算法和处理逻辑。
 
-# 2.3　支持问答类型
+![image-20200704210512368](/Users/sdj/Library/Application Support/typora-user-images/image-20200704210512368.png)
+
+## 2.2 脚本结构
+### 2.2.1 问句类型分类脚本(question_classifier.py)
+
+对文本进行分词与命名实体识别，识别出与股票概念相关的关键词，并基于关键词对问题进行20类问题分类。支持问答类别在2.3详细展开。
+
+![image-20200704210953413](/Users/sdj/Library/Application Support/typora-user-images/image-20200704210953413.png)
+
+
+
+### 2.2.2 问句解析脚本(question_parser.py)
+
+根据分类脚本对问题的分类结果与关键词提取，解析问句，将问句转化为Neo4j图数据库的Cypher语句。
+
+![image-20200704211148979](/Users/sdj/Library/Application Support/typora-user-images/image-20200704211148979.png)
+
+
+
+### 2.2.3 知识搜索脚本(answer_search.py)
+
+链接服务器中的Neo4j数据库，传入Cypher语句进行知识查询，得到结果。
+
+![image-20200704211400952](/Users/sdj/Library/Application Support/typora-user-images/image-20200704211400952.png)
+
+
+
+### 2.2.4 问答程序脚本(chatbot_graph.py)
+
+负责启动服务器中的问答程序。
+
+![image-20200704211345483](/Users/sdj/Library/Application Support/typora-user-images/image-20200704211345483.png)
+
+
+
+## 2.3 支持问答类型
 
 | 问句类型 | 中文含义 | 问句举例 |
 | :--- | :---: | :---: |
@@ -113,7 +144,7 @@ chatbot_graph.py：问答程序脚本
 | company_risk | 股票风险评估 | 黄山Ｂ股怎么样？ |
 | executive_risk | 董事风险评估 | 评估一下宋杰风险？ |
 
-# 问答结果展示
+## 问答结果展示
 
         用户:古井贡酒的概念有哪些？
         小宋: 古井贡酒所属的概念包括：融资融券；含B股
@@ -203,16 +234,6 @@ chatbot_graph.py：问答程序脚本
     ******************************************************************************************
 
 # 总结
-１、本项目完成了从无到有，以垂直网站为数据来源，构建起以疾病为中心的医疗知识图谱，实体规模4.4万，实体关系规模30万。并基于此，搭建起了一个可以回答18类问题的自动问答小系统,总共耗时3天。其中，数据采集与整理1天，知识图谱构建与入库0.5天，问答系统组件1.5天。总的来说，还是比较快速。      
-2、本项目以业务驱动，构建医疗知识图谱，知识schema设计基于所采集的结构化数据生成(对网页结构化数据进行xpath解析)。    
-3、本项目以neo4j作为存储，并基于传统规则的方式完成了知识问答，并最终以cypher查询语句作为问答搜索sql，支持了问答服务。  
-4、本项目可以快速部署，数据已经放在data/medical.json当中，本项目的数据，如侵犯相关单位权益，请联系我删除。本数据请勿商用，以免引起不必要的纠纷。在本项目中的部署上，可以遵循项目运行步骤，完成数据库搭建，并提供搜索服务。  
-5、本项目还有不足：关于疾病的起因、预防等，实际返回的是一大段文字，这里其实可以引入事件抽取的概念，进一步将原因结构化表示出来。这个可以后面进行尝试。    
-
-If any question about the project or me ,see https://liuhuanyong.github.io/
-
-
-如有自然语言处理、知识图谱、事理图谱、社会计算、语言资源建设等问题或合作，可联系我：    
-1、我的github项目介绍：https://liuhuanyong.github.io  
-2、我的csdn博客：https://blog.csdn.net/lhy2014  
-3、about me:刘焕勇，中国科学院软件研究所，lhy_in_blcu@126.com  
+1. 本项目基于同花顺金融服务网http://pycs.greedyai.com/与tushare网站的数据，并增量集成了来自其他项目组的真实数据，并以股票为核心，构建了一个包含4类规模为2.2万的知识实体，11类规模约3.6万实体关系的股票知识图谱，并依托于知识图谱数据构建了股票自动问答系统。
+2. 本项目以neo4j作为存储，经过实际测试，数据导入时间可在2小时内完成，问答系统启动可在5秒内完成，超过90%的问题可在2秒内获得结果，可以较好地满足用户对问答系统的需求。 
+3. 本项目可以以脚本的形式快速运行，可快速部署到多端应用，如本例可以较容易地部署到HTTP网络环境中（见chatbot_server.py文件）。 
